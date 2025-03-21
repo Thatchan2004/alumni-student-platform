@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Alumni Connection Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #224abe;
+            --accent-color: #f8f9fc;
+            --text-color: #5a5c69;
+            --alumni-color: #1cc88a;
+            --student-color: #36b9cc;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .alumni-icon {
+            color: var(--alumni-color);
+        }
+
+        .student-icon {
+            color: var(--student-color);
+        }
+
+        .btn-alumni, .btn-student {
+            padding: 0.75rem;
+            font-weight: 600;
+            color: white;
+            border: none;
+            width: 100%;
+            font-size: 1.1rem;
+            border-radius: 5px;
+        }
+
+        .btn-alumni {
+            background-color: var(--alumni-color);
+        }
+
+        .btn-student {
+            background-color: var(--student-color);
+        }
+
+        .btn-alumni:hover {
+            background-color: #169c6b;
+        }
+
+        .btn-student:hover {
+            background-color: #2a93a3;
+        }
+
+        .auth-options {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .auth-btn {
+            width: 48%;
+            padding: 0.75rem;
+            font-weight: 600;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn-signin {
+            background-color: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-signin:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-signup {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-signup:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .why-join {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .why-join h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .why-join .feature-item {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            gap: 1rem;
+            font-size: 1.2rem;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .feature-item i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 1rem 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1>Welcome to Alumni Connection Platform</h1>
+        <p class="lead">Connect, collaborate, and grow with your alma mater community</p>
+    </section>
+
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center mb-4">
+                <h2>I am a...</h2>
+                <p>Select your role to continue</p>
+            </div>
+
+            <!-- Alumni Card -->
+            <div class="col-md-6">
+                <div class="card text-center p-4">
+                    <div class="card-icon alumni-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>Alumni</h3>
+                    <p>Former students who have graduated from the institution</p>
+                    <button class="btn btn-alumni" id="alumniBtn">Continue as Alumni</button>
+
+                    <div class="auth-options" id="alumniAuthOptions">
+                        <a href="alumni-signin.html" class="btn auth-btn btn-signin">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </a>
+                        <a href="alumni-signup.html" class="btn auth-btn btn-signup">
+                            <i class="fas fa-user-plus"></i> Sign Up
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Card -->
+            <div class="col-md-6">
+                <div class="card text-center p-4">
+                    <div class="card-icon student-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Student</h3>
+                    <p>Current students enrolled in the institution</p>
+                    <button class="btn btn-student" id="studentBtn">Continue as Student</button>
+
+                    <div class="auth-options" id="studentAuthOptions">
+                        <a href="student-signin.html" class="btn auth-btn btn-signin">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </a>
+                        <a href="student-signup.html" class="btn auth-btn btn-signup">
+                            <i class="fas fa-user-plus"></i> Sign Up
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Join Our Platform? -->
+        <div class="row why-join">
+            <div class="col-12">
+                <h2>Why Join Our Platform?</h2>
+                <div class="feature-item"><i class="fas fa-network-wired"></i> Networking - Connect with alumni and students</div>
+                <div class="feature-item"><i class="fas fa-briefcase"></i> Career Opportunities - Exclusive job postings & internships</div>
+                <div class="feature-item"><i class="fas fa-chalkboard-teacher"></i> Mentorship - Find or become a mentor</div>
+                <div class="feature-item"><i class="fas fa-calendar-alt"></i> Events - Reunions, webinars & workshops</div>
+                <div class="feature-item"><i class="fas fa-book"></i> Learning Resources - Courses & educational content</div>
+                <div class="feature-item"><i class="fas fa-users"></i> Community - Share knowledge & experiences</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Alumni Connection Platform. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('alumniBtn').addEventListener('click', function() {
+                document.getElementById('alumniAuthOptions').style.display = 'flex';
+                document.getElementById('studentAuthOptions').style.display = 'none';
+            });
+
+            document.getElementById('studentBtn').addEventListener('click', function() {
+                document.getElementById('studentAuthOptions').style.display = 'flex';
+                document.getElementById('alumniAuthOptions').style.display = 'none';
+            });
+        });
+    </script>
+
+</body>
+</html>

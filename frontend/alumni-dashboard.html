@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Dashboard - Alumni Connection Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #224abe;
+            --accent-color: #f8f9fc;
+            --text-color: #5a5c69;
+            --alumni-color: #1cc88a;
+            --student-color: #36b9cc;
+            --light-gray: #eaecf4;
+            --dark-gray: #858796;
+            --success: #1cc88a;
+            --danger: #e74a3b;
+            --warning: #f6c23e;
+            --info: #36b9cc;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(180deg, var(--alumni-color) 10%, #169c6b 100%);
+            min-height: 100vh;
+            position: fixed;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .sidebar-brand {
+            height: 4.375rem;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 800;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            letter-spacing: 0.05rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sidebar hr {
+            margin: 0 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .sidebar-heading {
+            padding: 0 1rem;
+            font-weight: 800;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            margin: 1rem 0 0.5rem;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .nav-link:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-link.active {
+            color: white;
+            font-weight: 700;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-link i {
+            margin-right: 0.5rem;
+            font-size: 1rem;
+            width: 1.5rem;
+            text-align: center;
+        }
+        
+        .sidebar-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            margin: 1rem;
+        }
+        
+        .sidebar-toggle {
+            position: fixed;
+            right: 1rem;
+            top: 1rem;
+            z-index: 1031;
+            display: none;
+        }
+        
+        /* Main Content Styles */
+        .content {
+            flex: 1;
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .navbar-search {
+            width: 25rem;
+            position: relative;
+        }
+        
+        .navbar-search input {
+            font-size: 0.85rem;
+            height: auto;
+            padding: 0.75rem 1rem;
+            border-radius: 10rem;
+            background-color: var(--light-gray);
+            border: 1px solid var(--light-gray);
+        }
+        
+        .navbar-search input:focus {
+            background-color: white;
+            box-shadow: none;
+            border-color: #bac8f3;
+        }
+        
+        .navbar-search button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            background: transparent;
+            border: none;
+            padding: 0 1rem;
+            color: var(--dark-gray);
+        }
+        
+        .topbar-divider {
+            width: 0;
+            border-right: 1px solid var(--light-gray);
+            height: calc(4.375rem - 2rem);
+            margin: auto 1rem;
+        }
+        
+        .user-dropdown img {
+            height: 2rem;
+            width: 2rem;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .user-dropdown .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            padding: 0.5rem;
+        }
+        
+        .user-dropdown .dropdown-toggle:hover {
+            color: var(--alumni-color);
+        }
+        
+        .user-dropdown .dropdown-toggle::after {
+            display: none;
+        }
+        
+        .user-dropdown .dropdown-menu {
+            border: none;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            border-radius: 0.35rem;
+            width: 15rem;
+        }
+        
+        .user-dropdown .dropdown-item {
+            font-size: 0.85rem;
+            padding: 0.5rem 1.5rem;
+        }
+        
+        .user-dropdown .dropdown-item i {
+            margin-right: 0.5rem;
+            text-align: center;
+            width: 1.25rem;
+        }
+        
+        .user-dropdown .dropdown-divider {
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        /* Dashboard Content */
+        .dashboard-container {
+            padding: 1.5rem;
+        }
+        
+        .page-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .page-header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-header p {
+            color: var(--dark-gray);
+            margin-bottom: 0;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 0.35rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid var(--light-gray);
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .card-header h6 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0;
+        }
+        
+        .card-body {
+            padding: 1.25rem;
+        }
+        
+        .progress {
+            height: 1rem;
+            border-radius: 0.35rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar {
+            background-color: var(--alumni-color);
+        }
+        
+        .stat-card {
+            border-left: 0.25rem solid;
+            border-radius: 0.35rem;
+        }
+        
+        .stat-card.primary {
+            border-left-color: var(--alumni-color);
+        }
+        
+        .stat-card.success {
+            border-left-color: var(--success);
+        }
+        
+        .stat-card.info {
+            border-left-color: var(--info);
+        }
+        
+        .stat-card.warning {
+            border-left-color: var(--warning);
+        }
+        
+        .stat-card .card-body {
+            padding: 1.25rem;
+        }
+        
+        .stat-card .stat-title {
+            text-transform: uppercase;
+            color: var(--alumni-color);
+            font-weight: 700;
+            font-size: 0.7rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-card.success .stat-title {
+            color: var(--success);
+        }
+        
+        .stat-card.info .stat-title {
+            color: var(--info);
+        }
+        
+        .stat-card.warning .stat-title {
+            color: var(--warning);
+        }
+        
+        .stat-card .stat-value {
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 0;
+        }
+        
+        .stat-card .stat-icon {
+            font-size: 2rem;
+            color: #dddfeb;
+        }
+        
+        /* Student Cards */
+        .student-card {
+            transition: transform 0.2s;
+        }
+        
+        .student-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .student-img {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 0.25rem solid var(--light-gray);
+        }
+        
+        .student-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .student-major {
+            color: var(--student-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .student-year {
+            color: var(--dark-gray);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+        
+        .student-tags {
+            margin-bottom: 1rem;
+        }
+        
+        .student-tag {
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
+            margin-right: 0.25rem;
+            margin-bottom: 0.25rem;
+            display: inline-block;
+        }
+        
+        .btn-mentor {
+            background-color: var(--alumni-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.35rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-mentor:hover {
+            background-color: #169c6b;
+            color: white;
+        }
+        
+        .btn-message {
+            background-color: white;
+            color: var(--alumni-color);
+            border: 1px solid var(--alumni-color);
+            padding: 0.5rem 1rem;
+            border-radius: 0.35rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-message:hover {
+            background-color: var(--alumni-color);
+            color: white;
+        }
+        
+        /* Job Posting Form */
+        .form-label {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 0.35rem;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+        
+        .form-control:focus {
+            border-color: var(--alumni-color);
+            box-shadow: 0 0 0 0.25rem rgba(28, 200, 138, 0.25);
+        }
+        
+        .form-text {
+            color: var(--dark-gray);
+            font-size: 0.85rem;
+        }
+        
+        .btn-post-job {
+            background-color: var(--alumni-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.35rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-post-job:hover {
+            background-color: #169c6b;
+            color: white;
+        }
+        
+        /* Mentorship Requests */
+        .mentorship-request {
+            border-bottom: 1px solid var(--light-gray);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .mentorship-request:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .request-img {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .request-name {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .request-details {
+            color: var(--dark-gray);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .request-message {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-accept {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.35rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-accept:hover {
+            background-color: #169c6b;
+            color: white;
+        }
+        
+        .btn-decline {
+            background-color: white;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+            padding: 0.5rem 1rem;
+            border-radius: 0.35rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-decline:hover {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        /* Event Cards */
+        .event-card {
+            transition: transform 0.2s;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .event-date {
+            background-color: var(--alumni-color);
+            color: white;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 0.35rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .event-date .day {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .event-date .month {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        
+        .event-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .event-time, .event-location {
+            color: var(--dark-gray);
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .event-time i, .event-location i {
+            margin-right: 0.25rem;
+            color: var(--alumni-color);
+        }
+        
+        .event-description {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-host {
+            background-color: var(--alumni-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.35rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-host:hover {
+            background-color: #169c6b;
+            color: white;
+        }
+        
+        /* Profile Styles */
+        .profile-header {
+            background-color: white;
+            border-radius: 0.35rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 1.5rem;
+            padding: 2rem;
+        }
+        
+        .profile-img {
+            width: 10rem;
+            height: 10rem;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 0.5rem solid var(--light-gray);
+            margin-bottom: 1rem;
+        }
+        
+        .profile-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-title {
+            color: var(--alumni-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-company {
+            color: var(--dark-gray);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .profile-bio {
+            color: var(--text-color);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .profile-social a {
+            color: var(--dark-gray);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .profile-social a:hover {
+            color: var(--alumni-color);
+        }
+        
+        /* Message Styles */
+        .message-list {
+            height: 400px;
+            overflow-y: auto;
+        }
+        
+        .message-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .message-item:hover {
+            background-color: rgba(28, 200, 138, 0.05);
+        }
+        
+        .message-item.active {
+            background-color: rgba(28, 200, 138, 0.1);
+            border-left: 3px solid var(--alumni-color);
+        }
+        
+        .message-sender {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .message-preview {
+            color: var(--dark-gray);
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .message-time {
+            color: var(--dark-gray);
+            font-size: 0.75rem;
+        }
+        
+        .message-content {
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .message-body {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        
+        .message-footer {
+            padding: 1rem;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .message-bubble {
+            max-width: 75%;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .message-sent {
+            background-color: var(--alumni-color);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 0.25rem;
+        }
+        
+        .message-received {
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            border-bottom-left-radius: 0.25rem;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        /* Loading Spinner */
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            color: var(--alumni-color);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                margin-left: -250px;
+            }
+            
+            .sidebar.active {
+                margin-left: 0;
+            }
+            
+            .content {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .content.active {
+                margin-left: 250px;
+                width: calc(100% - 250px);
+            }
+            
+            .sidebar-toggle {
+                display: block;
+            }
+            
+            .navbar-search {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="sidebar-brand">
+            <i class="fas fa-user-graduate me-2"></i>
+            AlumniConnect
+        </a>
+        <hr class="sidebar-divider">
+        
+        <div class="sidebar-heading">Core</div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-section="profile">
+                    <i class="fas fa-fw fa-user"></i>
+                    Profile
+                </a>
+            </li>
+        </ul>
+        
+        <hr class="sidebar-divider">
+        
+        <div class="sidebar-heading">Connect</div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" data-section="student-directory">
+                    <i class="fas fa-fw fa-users"></i>
+                    Student Directory
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-section="mentorship">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    Mentorship
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-section="messages">
+                    <i class="fas fa-fw fa-envelope"></i>
+                    Messages
+                </a>
+            </li>
+        </ul>
+        
+        <hr class="sidebar-divider">
+        
+        <div class="sidebar-heading">Opportunities</div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" data-section="post-job">
+                    <i class="fas fa-fw fa-briefcase"></i>
+                    Post Job
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-section="post-internship">
+                    <i class="fas fa-fw fa-laptop-code"></i>
+                    Post Internship
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-section="host-event">
+                    <i class="fas fa-fw fa-calendar-alt"></i>
+                    Host Event
+                </a>
+            </li>
+        </ul>
+        
+        <hr class="sidebar-divider">
+        
+        <div class="sidebar-heading">Resources</div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" data-section="share-resources">
+                    <i class="fas fa-fw fa-book"></i>
+                    Share Resources
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-section="alumni-network">
+                    <i class="fas fa-fw fa-network-wired"></i>
+                    Alumni Network
+                </a>
+            </li>
+        </ul>
+        
+        <hr class="sidebar-divider">
+        
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" data-section="settings">
+                    <i class="fas fa-fw fa-cog"></i>
+                    Settings
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+    
+    <!-- Sidebar Toggle Button -->
+    <button class="btn btn-success rounded-circle shadow sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Top Navigation Bar -->
+        <nav class="navbar navbar-expand navbar-light bg-white mb-4 shadow">
+            <div class="container-fluid">
+                <!-- Search Bar -->
+                <form class="navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for students, mentees, events...">
+                        <button class="btn" type="button">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Navbar Items -->
+                <ul class="navbar-nav ms-auto">
+                    <!-- Notifications Dropdown -->
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell fa-fw"></i>
+                            <span class="badge bg-danger badge-counter">3+</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                            <h6 class="dropdown-header">Notifications Center</h6>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="me-3">
+                                    <div class="icon-circle bg-primary">
+                                        <i class="fas fa-user-plus text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">December 12, 2023</div>
+                                    <span>New mentorship request from Sarah Chen</span>
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="me-3">
+                                    <div class="icon-circle bg-success">
+                                        <i class="fas fa-calendar-check text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">December 10, 2023</div>
+                                    <span>5 students registered for your workshop</span>
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="me-3">
+                                    <div class="icon-circle bg-warning">
+                                        <i class="fas fa-comment text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">December 8, 2023</div>
+                                    <span>New message from your mentee Michael</span>
+                                </div>
+                            </a>
+                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Notifications</a>
+                        </div>
+                    </li>
+                    
+                    <!-- Messages Dropdown -->
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-envelope fa-fw"></i>
+                            <span class="badge bg-danger badge-counter">7</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end shadow animated--

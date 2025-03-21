@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlumniConnect - Login/Signup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #224abe;
+            --accent-color: #f8f9fc;
+            --text-color: #5a5c69;
+            --alumni-color: #1cc88a;
+            --student-color: #36b9cc;
+            --light-gray: #eaecf4;
+            --dark-gray: #858796;
+            --success: #1cc88a;
+            --danger: #e74a3b;
+            --warning: #f6c23e;
+            --info: #36b9cc;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--alumni-color) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .auth-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 2rem auto;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15);
+            background-color: white;
+        }
+        
+        .auth-row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .auth-image {
+            flex: 1;
+            background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 500px;
+            position: relative;
+        }
+        
+        .auth-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(28, 200, 138, 0.8) 0%, rgba(54, 185, 204, 0.8) 100%);
+            opacity: 0.85;
+        }
+        
+        .auth-image-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            color: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .auth-image-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .auth-image-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-form {
+            flex: 1;
+            padding: 2rem;
+        }
+        
+        .auth-form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-form-header h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .auth-form-header p {
+            color: var(--dark-gray);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 0.35rem;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+        }
+        
+        .form-text {
+            color: var(--dark-gray);
+            font-size: 0.85rem;
+        }
+        
+        .btn-auth {
+            width: 100%;
+            padding: 0.75rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 0.35rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-student {
+            background-color: var(--student-color);
+            color: white;
+            border: none;
+        }
+        
+        .btn-student:hover {
+            background-color: #2a93a3;
+            color: white;
+        }
+        
+        .btn-alumni {
+            background-color: var(--alumni-color);
+            color: white;
+            border: none;
+        }
+        
+        .btn-alumni:hover {
+            background-color: #169c6b;
+            color: white;
+        }
+        
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+        
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .auth-divider span {
+            padding: 0 1rem;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-social {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem;
+            border-radius: 0.35rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-google {
+            background-color: #ea4335;
+        }
+        
+        .btn-google:hover {
+            background-color: #d33426;
+            color: white;
+        }
+        
+        .btn-facebook {
+            background-color: #3b5998;
+        }
+        
+        .btn-facebook:hover {
+            background-color: #2d4373;
+            color: white;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        .auth-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-gray);
+            transition: all 0.2s;
+        }
+        
+        .auth-tab.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .auth-form-content {
+            display: none;
+        }
+        
+        .auth-form-content.active {
+            display: block;
+        }
+        
+        .role-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .role-option {
+            flex: 1;
+            border: 1px solid var(--light-gray);
+            border-radius: 0.35rem;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .role-option:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .role-option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(78, 115, 223, 0.05);
+        }
+        
+        .role-option i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-gray);
+        }
+        
+        .role-option.selected i {
+            color: var(--primary-color);
+        }
+        
+        .role-option.student.selected i {
+            color: var(--student-color);
+        }
+        
+        .role-option.alumni.selected i {
+            color: var(--alumni-color);
+        }
+        
+        .role-option h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .role-option p {
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+            margin-bottom: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .auth-image {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-row">
+            <div class="auth-image">
+                <div class="auth-image-content">
+                    <h2>Welcome to AlumniConnect</h2>
+                    <p>Connect with alumni and students, share opportunities, and build your professional network.</p>
+                    <div class="d-flex gap-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-users fa-2x me-2"></i>
+                            <div>
+                                <h5 class="mb-0">5,000+</h5>
+                                <p class="mb-0">Alumni & Students</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-briefcase fa-2x me-2"></i>
+                            <div>
+                                <h5 class="mb-0">1,200+</h5>
+                                <p class="mb-0">Job Opportunities</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="auth-form">
+                <div class="auth-form-header">
+                    <h3>Sign In to Your Account</h3>
+                    <p>Access your dashboard and connect with the community</p>
+                </div>
+                
+                <div class="auth-tabs">
+                    <div class="auth-tab active" data-tab="login">Login</div>
+                    <div class="auth-tab" data-tab="signup">Sign Up</div>
+                </div>
+                
+                <!-- Login Form -->
+                <div class="auth-form-content active" id="login-form">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password">
+                            <div class="d-flex justify-content-end mt-2">
+                                <a href="#" class="text-decoration-none" style="font-size: 0.85rem; color: var(--primary-color);">Forgot password?</a>
+                            </div>
+                        </div>
+                        
+                        <div class="role-selector">
+                            <div class="role-option student" data-role="student">
+                                <i class="fas fa-user-graduate"></i>
+                                <h4>Student</h4>
+                                <p>Current student looking to connect with alumni</p>
+                            </div>
+                            <div class="role-option alumni" data-role="alumni">
+                                <i class="fas fa-user-tie"></i>
+                                <h4>Alumni</h4>
+                                <p>Graduate looking to mentor and share opportunities</p>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-auth btn-primary" id="loginButton">Sign In</button>
+                    </form>
+                    
+                    <div class="auth-divider">
+                        <span>OR SIGN IN WITH</span>
+                    </div>
+                    
+                    <div class="social-login">
+                        <a href="#" class="btn-social btn-google">
+                            <i class="fab fa-google me-2"></i> Google
+                        </a>
+                        <a href="#" class="btn-social btn-facebook">
+                            <i class="fab fa-facebook-f me-2"></i> Facebook
+                        </a>
+                    </div>
+                    
+                    <div class="auth-footer">
+                        Don't have an account? <a href="#" id="switchToSignup">Sign Up</a>
+                    </div>
+                </div>
+                
+                <!-- Signup Form -->
+                <div class="auth-form-content" id="signup-form">
+                    <form id="signupForm">
+                        <div class="form-group">
+                            <label for="signupName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="signupName" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="signupEmail" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="signupPassword" placeholder="Create a password">
+                            <div class="form-text">Password must be at least 8 characters long with a mix of letters, numbers, and symbols.</div>
+                        </div>
+                        
+                        <div class="role-selector">
+                            <div class="role-option student" data-role="student">
+                                <i class="fas fa-user-graduate"></i>
+                                <h4>Student</h4>
+                                <p>Current student looking to connect with alumni</p>
+                            </div>
+                            <div class="role-option alumni" data-role="alumni">
+                                <i class="fas fa-user-tie"></i>
+                                <h4>Alumni</h4>
+                                <p>Graduate looking to mentor and share opportunities</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="termsCheck">
+                            <label class="form-check-label" for="termsCheck" style="font-size: 0.85rem;">
+                                I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and <a href="#" class="text-decoration-none">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <button type="button" class="btn btn-auth btn-primary" id="signupButton">Create Account</button>
+                    </form>
+                    
+                    <div class="auth-divider">
+                        <span>OR SIGN UP WITH</span>
+                    </div>
+                    
+                    <div class="social-login">
+                        <a href="#" class="btn-social btn-google">
+                            <i class="fab fa-google me-2"></i> Google
+                        </a>
+                        <a href="#" class="btn-social btn-facebook">
+                            <i class="fab fa-facebook-f me-2"></i> Facebook
+                        </a>
+                    </div>
+                    
+                    <div class="auth-footer">
+                        Already have an account? <a href="#" id="switchToLogin">Sign In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            const tabs = document.querySelectorAll('.auth-tab');
+            const forms = document.querySelectorAll('.auth-form-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show corresponding form
+                    forms.forEach(form => form.classList.remove('active'));
+                    document.getElementById(`${tabId}-form`).classList.add('active');
+                });
+            });
+            
+            // Switch between login and signup
+            document.getElementById('switchToSignup').addEventListener('click', function(e) {
+                e.preventDefault();
+                tabs.forEach(t => t.classList.remove('active'));
+                tabs[1].classList.add('active');
+                forms.forEach(form => form.classList.remove('active'));
+                document.getElementById('signup-form').classList.add('active');
+            });
+            
+            document.getElementById('switchToLogin').addEventListener('click', function(e) {
+                e.preventDefault();
+                tabs.forEach(t => t.classList.remove('active'));
+                tabs[0].classList.add('active');
+                forms.forEach(form => form.classList.remove('active'));
+                document.getElementById('login-form').classList.add('active');
+            });
+            
+            // Role selection
+            const roleOptions = document.querySelectorAll('.role-option');
+            
+            roleOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Find parent form
+                    const parentForm = option.closest('.auth-form-content');
+                    const roleOptionsInForm = parentForm.querySelectorAll('.role-option');
+                    
+                    // Update selection
+                    roleOptionsInForm.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    
+                    // Update button color based on role
+                    const submitButton = parentForm.querySelector('.btn-auth');
+                    submitButton.classList.remove('btn-primary', 'btn-student', 'btn-alumni');
+                    
+                    if (option.classList.contains('student')) {
+                        submitButton.classList.add('btn-student');
+                    } else if (option.classList.contains('alumni')) {
+                        submitButton.classList.add('btn-alumni');
+                    } else {
+                        submitButton.classList.add('btn-primary');
+                    }
+                });
+            });
+            
+            // Login button click
+            document.getElementById('loginButton').addEventListener('click', function() {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                const selectedRole = document.querySelector('#login-form .role-option.selected');
+                
+                if (!email || !password) {
+                    alert('Please enter your email and password');
+                    return;
+                }
+                
+                if (!selectedRole) {
+                    alert('Please select your role');
+                    return;
+                }
+                
+                const role = selectedRole.getAttribute('data-role');
+                
+                // Redirect to appropriate dashboard
+                if (role === 'student') {
+                    window.location.href = 'student-dashboard.html';
+                } else if (role === 'alumni') {
+                    window.location.href = 'alumni-dashboard.html';
+                }
+            });
+            
+            // Signup button click
+            document.getElementById('signupButton').addEventListener('click', function() {
+                const name = document.getElementById('signupName').value;
+                const email = document.getElementById('signupEmail').value;
+                const password = document.getElementById('signupPassword').value;
+                const termsChecked = document.getElementById('termsCheck').checked;
+                const selectedRole = document.querySelector('#signup-form .role-option.selected');
+                
+                if (!name || !email || !password) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                if (!termsChecked) {
+                    alert('Please agree to the Terms of Service and Privacy Policy');
+                    return;
+                }
+                
+                if (!selectedRole) {
+                    alert('Please select your role');
+                    return;
+                }
+                
+                const role = selectedRole.getAttribute('data-role');
+                
+                // Redirect to appropriate dashboard
+                if (role === 'student') {
+                    window.location.href = 'student-dashboard.html';
+                } else if (role === 'alumni') {
+                    window.location.href = 'alumni-dashboard.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

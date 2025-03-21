@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Sign In - Alumni Connection Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #224abe;
+            --accent-color: #f8f9fc;
+            --text-color: #5a5c69;
+            --alumni-color: #1cc88a;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .auth-header {
+            background: linear-gradient(135deg, var(--alumni-color) 0%, #169c6b 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-header h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+        
+        .auth-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 2rem;
+        }
+        
+        .auth-card .card-header {
+            background-color: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-top-left-radius: 10px !important;
+            border-top-right-radius: 10px !important;
+        }
+        
+        .auth-icon {
+            font-size: 2rem;
+            color: var(--alumni-color);
+            margin-bottom: 1rem;
+        }
+        
+        .btn-alumni {
+            background-color: var(--alumni-color);
+            border-color: var(--alumni-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+        }
+        
+        .btn-alumni:hover {
+            background-color: #169c6b;
+            border-color: #169c6b;
+            color: white;
+        }
+        
+        .form-control:focus {
+            border-color: var(--alumni-color);
+            box-shadow: 0 0 0 0.25rem rgba(28, 200, 138, 0.25);
+        }
+        
+        footer {
+            margin-top: auto;
+        }
+        
+        .signup-link {
+            color: var(--alumni-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .signup-link:hover {
+            color: #169c6b;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth Header -->
+    <section class="auth-header">
+        <div class="container text-center">
+            <div class="auth-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <h1>Alumni Sign In</h1>
+            <p class="lead">Welcome back! Sign in to connect with your alma mater community</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="auth-card">
+                    <div class="card-body p-5">
+                        <form id="signinForm">
+                            <div class="mb-4">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control form-control-lg" id="email" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control form-control-lg" id="password" required>
+                            </div>
+                            
+                            <div class="mb-4 form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                                <a href="forgot-password.html" class="float-end signup-link">Forgot Password?</a>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-alumni w-100 btn-lg">Sign In</button>
+                            
+                            <div class="mt-4 text-center">
+                                Don't have an account? <a href="alumni-signup.html" class="signup-link">Sign up</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="text-center mb-5">
+                    <a href="index.html" class="text-decoration-none">
+                        <i class="fas fa-arrow-left me-2"></i> Back to Role Selection
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-4 bg-light">
+        <div class="container text-center">
+            <p>© 2024 Alumni Connection Platform. All rights reserved.</p>
+            <div>
+                <a href="#" class="text-decoration-none me-3">Privacy Policy</a>
+                <a href="#" class="text-decoration-none me-3">Terms of Service</a>
+                <a href="#" class="text-decoration-none">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle form submission
+            document.getElementById('signinForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Get user input
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                // Simple validation
+                if (email && password) {
+                    sessionStorage.setItem('userRole', 'alumni'); // Store user role
+                    window.location.href = 'alumni-dashboard.html'; // Redirect after login
+                } else {
+                    alert('Please enter valid credentials.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

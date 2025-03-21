@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Sign Up - Alumni Connection Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #224abe;
+            --accent-color: #f8f9fc;
+            --text-color: #5a5c69;
+            --alumni-color: #1cc88a;
+            --student-color: #36b9cc;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-header {
+            background: linear-gradient(135deg, var(--student-color) 0%, #2a93a3 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .auth-header h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .auth-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d3e2;
+            border-radius: 0.35rem;
+            color: #6e707e;
+            font-size: 0.9rem;
+        }
+
+        .btn-student {
+            background-color: var(--student-color);
+            border-color: var(--student-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-student:hover {
+            background-color: #2a93a3;
+            border-color: #2a93a3;
+            color: white;
+        }
+
+        .student-link {
+            color: var(--student-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .student-link:hover {
+            color: #2a93a3;
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth Header -->
+    <section class="auth-header">
+        <h1>Student Sign Up</h1>
+        <p>Join our platform to connect with alumni and access valuable resources</p>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="studentSignupForm">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="studentId" class="form-label">Student ID</label>
+                                <input type="text" class="form-control" id="studentId" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="department" class="form-label">Department/Major</label>
+                                <input type="text" class="form-control" id="department" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="yearOfStudy" class="form-label">Year of Study</label>
+                                <select class="form-control" id="yearOfStudy" required>
+                                    <option value="">Select Year</option>
+                                    <option value="1">1st Year</option>
+                                    <option value="2">2nd Year</option>
+                                    <option value="3">3rd Year</option>
+                                    <option value="4">4th Year</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-student">Sign Up</button>
+
+                            <div class="text-center mt-4">
+                                Already have an account? <a href="student-signin.html" class="student-link">Sign in</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-4 bg-light">
+        <div class="container text-center">
+            <p>© 2023 Alumni Connection Platform. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('studentSignupForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+                
+                const formData = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    password: password,
+                    studentId: document.getElementById('studentId').value,
+                    department: document.getElementById('department').value,
+                    yearOfStudy: document.getElementById('yearOfStudy').value
+                };
+
+                console.log('Form data:', formData);
+                
+                // Redirect to student dashboard after successful signup
+                window.location.href = 'student-dashboard.html';
+            });
+        });
+    </script>
+</body>
+</html>

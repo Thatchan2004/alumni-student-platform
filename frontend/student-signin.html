@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Sign In - Alumni Connection Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #224abe;
+            --accent-color: #f8f9fc;
+            --text-color: #5a5c69;
+            --alumni-color: #1cc88a;
+            --student-color: #36b9cc;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-header {
+            background: linear-gradient(135deg, var(--student-color) 0%, #2a93a3 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .auth-header h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .auth-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .auth-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 2rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d3e2;
+            border-radius: 0.35rem;
+            color: #6e707e;
+            font-size: 0.9rem;
+        }
+
+        .form-control:focus {
+            border-color: #bac8f3;
+            box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+        }
+
+        .btn-student {
+            background-color: var(--student-color);
+            border-color: var(--student-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-student:hover {
+            background-color: #2a93a3;
+            border-color: #2a93a3;
+            color: white;
+        }
+
+        .btn-back {
+            background-color: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            border-radius: 0.35rem;
+            transition: all 0.2s;
+        }
+
+        .btn-back:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .student-link {
+            color: var(--student-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .student-link:hover {
+            color: #2a93a3;
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth Header -->
+    <section class="auth-header">
+        <div class="auth-icon">
+            <i class="fas fa-user"></i>
+        </div>
+        <h1>Student Sign In</h1>
+        <p>Welcome back! Sign in to connect with alumni and access resources</p>
+    </section>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="studentSigninForm">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                                </div>
+                                <a href="forgot-password.html" class="student-link">Forgot Password?</a>
+                            </div>
+
+                            <button type="submit" class="btn btn-student">Sign In</button>
+
+                            <div class="text-center mt-4">
+                                Don't have an account? <a href="student-signup.html" class="student-link">Sign up</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="text-center mb-5">
+                    <a href="index.html" class="btn btn-back">
+                        <i class="fas fa-arrow-left me-2"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-4 bg-light">
+        <div class="container text-center">
+            <p>© 2023 Alumni Connection Platform. All rights reserved.</p>
+            <div>
+                <a href="#" class="text-decoration-none me-3">Privacy Policy</a>
+                <a href="#" class="text-decoration-none me-3">Terms of Service</a>
+                <a href="#" class="text-decoration-none">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('studentSigninForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                if (email === "" || password === "") {
+                    alert("Please fill in all fields.");
+                    return;
+                }
+
+                console.log("User signed in with email:", email);
+
+                // Redirecting to dashboard
+                window.location.href = 'student-dashboard.html';
+            });
+        });
+    </script>
+</body>
+</html>
